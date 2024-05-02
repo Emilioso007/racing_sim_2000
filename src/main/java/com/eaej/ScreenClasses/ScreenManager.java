@@ -2,12 +2,12 @@ package com.eaej.ScreenClasses;
 
 public class ScreenManager {
 
-    private Screen currentScreen;
+    private static Screen currentScreen;
 
-    public ScreenManager() {
+    private ScreenManager() {
     }
 
-    public void run() {
+    public static void run() {
         try {
             currentScreen.update();
             currentScreen.render();
@@ -16,7 +16,7 @@ public class ScreenManager {
         }
     }
 
-    public void setCurrentScreen(Screen screen) {
+    public static void setCurrentScreen(Screen screen) {
         currentScreen = screen;
     }
 

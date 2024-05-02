@@ -1,6 +1,7 @@
 package com.eaej;
 
 import com.eaej.LogicClasses.Utility.MH;
+import com.eaej.LogicClasses.Utility.PerlinNoise;
 import com.eaej.ScreenClasses.ScreenManager;
 import com.eaej.ScreenClasses.Screens.StartMenu;
 
@@ -13,7 +14,7 @@ import processing.core.PConstants;
  */
 public class App extends PApplet {
 
-    ScreenManager screenManager;
+    public ScreenManager screenManager;
 
     public static void main(String[] args) {
         PApplet.main("com.eaej.App");
@@ -29,13 +30,13 @@ public class App extends PApplet {
         //center the window
         surface.setLocation((displayWidth - width) / 2, (displayHeight - height) / 2);
 
-        screenManager = new ScreenManager();
-        screenManager.setCurrentScreen(new StartMenu(this));
+        ScreenManager.setCurrentScreen(new StartMenu(this));
 
+        PerlinNoise.init(this);
     }
 
     public void draw() {
-        screenManager.run();
+        ScreenManager.run();
 
         MH.update(mouseX, mouseY);
     }
@@ -44,10 +45,10 @@ public class App extends PApplet {
 
         switch (mouseButton) {
             case PConstants.LEFT:
-                MH.LEFT = 1;
+                MH.LEFT = MH.CLICKED;
                 break;
             case PConstants.RIGHT:
-                MH.RIGHT = 1;
+                MH.RIGHT = MH.CLICKED;
                 break;
             default:
                 break;
@@ -57,10 +58,10 @@ public class App extends PApplet {
     public void mouseReleased() {
         switch (mouseButton) {
             case PConstants.LEFT:
-                MH.LEFT = 0;
+                MH.LEFT = MH.RELEASED;
                 break;
             case PConstants.RIGHT:
-                MH.RIGHT = 0;
+                MH.RIGHT = MH.RELEASED;
                 break;
             default:
                 break;

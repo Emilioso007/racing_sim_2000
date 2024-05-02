@@ -2,25 +2,25 @@ package com.eaej.ScreenClasses.Screens;
 
 import com.eaej.LogicClasses.Utility.MH;
 import com.eaej.ScreenClasses.Screen;
+import com.eaej.ScreenClasses.ScreenManager;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
 
 public class StartMenu extends Screen{
 
-    int i = 0;
-
     public StartMenu(PApplet p) {
         super(p);
     }
 
+    @Override
     public void update() {
-        i++;
-        if(MH.X > 500 && MH.LEFT == MH.CLICKED) {
-            System.out.println(i);
+        if(MH.LEFT == MH.CLICKED) {
+           ScreenManager.setCurrentScreen(new LevelTest(p));
         }
     }
 
+    @Override
     public void render() {
         p.background(0);
         p.textSize(32);
