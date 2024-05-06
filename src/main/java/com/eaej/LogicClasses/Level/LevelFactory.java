@@ -1,4 +1,4 @@
-package com.eaej.LogicClasses.LevelCreation;
+package com.eaej.LogicClasses.Level;
 
 import java.util.ArrayList;
 
@@ -41,6 +41,8 @@ public class LevelFactory {
 
             float n = PerlinNoise.noise(point.x + 128, point.y + 128) * radius;
             point.mult(n);
+            
+            point.z = n;
 
             points.add(point);
         }

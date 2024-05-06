@@ -2,7 +2,6 @@ package com.eaej.ScreenClasses.Screens;
 
 import com.eaej.LogicClasses.Utility.KH;
 import com.eaej.LogicClasses.Utility.MH;
-import com.eaej.ScreenClasses.Screen;
 import com.eaej.ScreenClasses.ScreenManager;
 
 import processing.core.PApplet;

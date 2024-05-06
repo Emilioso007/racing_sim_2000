@@ -1,5 +1,7 @@
 package com.eaej.ScreenClasses;
 
+import com.eaej.ScreenClasses.Screens.Screen;
+
 public class ScreenManager {
 
     private static Screen currentScreen;

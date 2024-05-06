@@ -1,4 +1,4 @@
-package com.eaej.LogicClasses.LevelCreation;
+package com.eaej.LogicClasses.Level;
 
 import java.util.ArrayList;
 

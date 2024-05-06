@@ -2,11 +2,10 @@ package com.eaej.ScreenClasses.Screens;
 
 import java.util.ArrayList;
 
-import com.eaej.LogicClasses.Vehicle;
-import com.eaej.LogicClasses.LevelCreation.Level;
-import com.eaej.LogicClasses.LevelCreation.LevelFactory;
+import com.eaej.LogicClasses.Level.Level;
+import com.eaej.LogicClasses.Level.LevelFactory;
 import com.eaej.LogicClasses.Utility.KH;
-import com.eaej.ScreenClasses.Screen;
+import com.eaej.LogicClasses.Vehicle.Vehicle;
 
 import processing.core.PApplet;
 import processing.core.PVector;
@@ -33,6 +32,9 @@ public class Sandbox extends Screen {
         if (KH.clicked("C")) {
             cameraMode = (cameraMode + 1) % 2;
         }
+        if (KH.clicked("R")) {
+            level = LevelFactory.createBlobLevel(100, 2000);
+        }
 
         if (KH.pressed("W")) {
             vehicle.applyForce(vehicle.getHeading());
@@ -57,12 +59,17 @@ public class Sandbox extends Screen {
         p.background(0);
 
         if (cameraMode == FIRST_PERSON) {
-            p.translate(vehicle.getPosition().x, vehicle.getPosition().y);
-            p.rotate(vehicle.getHeading().heading());
-            p.translate(-vehicle.getPosition().x, -vehicle.getPosition().y);
-        } else if (cameraMode == THIRD_PERSON) {
             p.translate(p.width / 2 - vehicle.getPosition().x, p.height / 2 -
                     vehicle.getPosition().y);
+        } else if (cameraMode == THIRD_PERSON) {
+            p.translate(p.width / 2, p.height / 2);
+            float maxNoise = 0;
+            for (PVector point : level.getPoints()) {
+                maxNoise = Math.max(maxNoise, point.z);
+            }
+            float scale = 0.5f * p.height / maxNoise;
+            p.scale(scale);
+            System.out.println(scale);
         }
 
         showLines(level.getPoints(), 0xFFFFFFFF, 10);

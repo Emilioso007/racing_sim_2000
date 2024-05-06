@@ -2,10 +2,9 @@ package com.eaej.ScreenClasses.Screens;
 
 import java.util.ArrayList;
 
-import com.eaej.LogicClasses.LevelCreation.Level;
-import com.eaej.LogicClasses.LevelCreation.LevelFactory;
+import com.eaej.LogicClasses.Level.Level;
+import com.eaej.LogicClasses.Level.LevelFactory;
 import com.eaej.LogicClasses.Utility.MH;
-import com.eaej.ScreenClasses.Screen;
 
 import processing.core.PApplet;
 import processing.core.PVector;

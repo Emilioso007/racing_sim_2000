@@ -1,4 +1,4 @@
-package com.eaej.LogicClasses;
+package com.eaej.LogicClasses.Vehicle;
 
 import processing.core.PVector;
 

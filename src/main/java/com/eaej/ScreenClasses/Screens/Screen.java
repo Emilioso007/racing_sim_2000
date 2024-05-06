@@ -1,9 +1,6 @@
-package com.eaej.ScreenClasses;
-
-import java.util.ArrayList;
+package com.eaej.ScreenClasses.Screens;
 
 import processing.core.PApplet;
-import processing.core.PVector;
 
 public class Screen {
     
