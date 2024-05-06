@@ -36,14 +36,15 @@ public class LevelTest extends Screen {
         p.pushMatrix();
         p.translate(p.width / 2, p.height / 2);
 
-        showLine(level.getPoints(), 0xFFFFFFFF, 2);
+        showLines(level.getPoints(), 0xFFFFFFFF, 2);
 
         showPoints(level.getPoints(), 0xFFFF0000, 5);
 
         p.popMatrix();
     }
 
-    public void showLine(ArrayList<PVector> points, int color, int size) {
+    
+    public void showLines(ArrayList<PVector> points, int color, int size) {
 
         p.stroke(color);
         p.strokeWeight(size);

@@ -1,5 +1,6 @@
 package com.eaej;
 
+import com.eaej.LogicClasses.Utility.KH;
 import com.eaej.LogicClasses.Utility.MH;
 import com.eaej.LogicClasses.Utility.PerlinNoise;
 import com.eaej.ScreenClasses.ScreenManager;
@@ -33,12 +34,14 @@ public class App extends PApplet {
         ScreenManager.setCurrentScreen(new StartMenu(this));
 
         PerlinNoise.init(this);
+        KH.init();
     }
 
     public void draw() {
         ScreenManager.run();
 
         MH.update(mouseX, mouseY);
+        KH.update();
     }
 
     public void mousePressed() {
@@ -65,6 +68,22 @@ public class App extends PApplet {
                 break;
             default:
                 break;
+        }
+    }
+
+    public void keyPressed() {
+        try {
+            KH.keys.put(KH.keyNames.get(keyCode), KH.CLICKED);
+        } catch (Exception e) {
+            System.out.println("### Error! Key not found ###");
+        }
+    }
+
+    public void keyReleased() {
+        try {
+            KH.keys.put(KH.keyNames.get(keyCode), KH.RELEASED);
+        } catch (Exception e) {
+            System.out.println("### Error! Key not found ###");
         }
     }
 
