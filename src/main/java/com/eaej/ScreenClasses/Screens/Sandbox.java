@@ -24,6 +24,7 @@ public class Sandbox extends Screen {
 
         level = LevelFactory.createBlobLevel(100, 2000);
         vehicle = new Vehicle(p.width / 2, p.height / 2);
+        vehicle.setLevel(level);
     }
 
     @Override
@@ -34,6 +35,7 @@ public class Sandbox extends Screen {
         }
         if (KH.clicked("R")) {
             level = LevelFactory.createBlobLevel(100, 2000);
+            vehicle.setLevel(level);
         }
 
         if (KH.pressed("W")) {
