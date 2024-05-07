@@ -3,7 +3,7 @@ package com.eaej.LogicClasses.Utility;
 import java.util.HashMap;
 
 public class KH {
-    
+
     public static HashMap<Integer, String> keyNames = new HashMap<Integer, String>();
     public static HashMap<String, Integer> keys = new HashMap<String, Integer>();
 
@@ -11,9 +11,8 @@ public class KH {
     public final static int CLICKED = 1;
     public final static int RELEASED = 0;
 
-    
     private KH() {
-        
+
     }
 
     public static void init() {
@@ -53,9 +52,9 @@ public class KH {
     }
 
     public static void update() {
-        
-        for(String key : keys.keySet()) {
-            if(keys.get(key) == CLICKED) {
+
+        for (String key : keys.keySet()) {
+            if (keys.get(key) == CLICKED) {
                 keys.put(key, PRESSED);
             }
         }
@@ -63,7 +62,7 @@ public class KH {
     }
 
     public static boolean clicked(String string) {
-        try{
+        try {
             return keys.get(string) == CLICKED;
         } catch (NullPointerException e) {
             return false;
@@ -71,7 +70,7 @@ public class KH {
     }
 
     public static boolean pressed(String string) {
-        try{
+        try {
             return keys.get(string) == PRESSED;
         } catch (NullPointerException e) {
             return false;
@@ -79,7 +78,7 @@ public class KH {
     }
 
     public static boolean released(String string) {
-        try{
+        try {
             return keys.get(string) == RELEASED;
         } catch (NullPointerException e) {
             return false;

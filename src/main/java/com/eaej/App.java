@@ -28,7 +28,7 @@ public class App extends PApplet {
     public void setup() {
         frameRate(60);
         surface.setTitle("Racing Sim 2000");
-        //center the window
+        // center the window
         surface.setLocation((displayWidth - width) / 2, (displayHeight - height) / 2);
 
         ScreenManager.setCurrentScreen(new StartMenu(this));

@@ -16,7 +16,7 @@ public class StartMenu extends Screen {
     @Override
     public void update() {
         if (MH.LEFT == MH.CLICKED || KH.clicked("ENTER")) {
-            ScreenManager.setCurrentScreen(new Sandbox(p));
+            ScreenManager.setCurrentScreen(new LocalPVE(p));
         }
     }
 

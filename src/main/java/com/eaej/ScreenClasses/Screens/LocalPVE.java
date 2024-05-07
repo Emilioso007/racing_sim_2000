@@ -1,7 +1,5 @@
 package com.eaej.ScreenClasses.Screens;
 
-import java.util.ArrayList;
-
 import com.eaej.LogicClasses.Level.Level;
 import com.eaej.LogicClasses.Level.LevelFactory;
 import com.eaej.LogicClasses.Utility.KH;
@@ -10,21 +8,33 @@ import com.eaej.LogicClasses.Vehicle.Vehicle;
 import processing.core.PApplet;
 import processing.core.PVector;
 
-public class Sandbox extends Screen {
+public class LocalPVE extends Screen {
 
-    Level level;
-    Vehicle vehicle;
+    private Vehicle[] vehicles;
+
+    private Level level;
 
     private final int FIRST_PERSON = 0;
     private final int THIRD_PERSON = 1;
     private int cameraMode = FIRST_PERSON;
 
-    public Sandbox(PApplet p) {
+    public LocalPVE(PApplet p) {
         super(p);
 
+        vehicles = new Vehicle[2];
+
+        vehicles[0] = new Vehicle(p.width / 2, p.height / 2);
+        vehicles[1] = new Vehicle(p.width / 2, p.height / 2);
+
+        vehicles[0].playerID = Vehicle.PLAYER_WASD;
+        vehicles[1].playerID = Vehicle.PLAYER_AI;
+
         level = LevelFactory.createBlobLevel(100, 2000);
-        vehicle = new Vehicle(p.width / 2, p.height / 2);
-        vehicle.setLevel(level);
+
+        for (Vehicle v : vehicles) {
+            v.setLevel(level);
+        }
+
     }
 
     @Override
@@ -35,23 +45,14 @@ public class Sandbox extends Screen {
         }
         if (KH.clicked("R")) {
             level = LevelFactory.createBlobLevel(100, 2000);
-            vehicle.setLevel(level);
+            for (Vehicle v : vehicles) {
+                v.setLevel(level);
+            }
         }
 
-        if (KH.pressed("W")) {
-            vehicle.applyForce(vehicle.getHeading());
+        for (Vehicle v : vehicles) {
+            v.update();
         }
-        if (KH.pressed("S")) {
-            vehicle.applyForce(vehicle.getHeading().mult(-1));
-        }
-        if (KH.pressed("A")) {
-            vehicle.rotate(-0.1f);
-        }
-        if (KH.pressed("D")) {
-            vehicle.rotate(0.1f);
-        }
-
-        vehicle.update();
 
     }
 
@@ -61,8 +62,8 @@ public class Sandbox extends Screen {
         p.background(0);
 
         if (cameraMode == FIRST_PERSON) {
-            p.translate(p.width / 2 - vehicle.getPosition().x, p.height / 2 -
-                    vehicle.getPosition().y);
+            p.translate(p.width / 2 - vehicles[0].getPosition().x, p.height / 2 -
+                    vehicles[0].getPosition().y);
         } else if (cameraMode == THIRD_PERSON) {
             p.translate(p.width / 2, p.height / 2);
             float maxNoise = 0;
@@ -77,7 +78,9 @@ public class Sandbox extends Screen {
         showLines(level.getPoints(), 0xFF3B3B3B, 120);
         showLines(level.getPoints(), 0xFFFFFFFF, 5);
 
-        showVehicle(vehicle);
+        for (Vehicle v : vehicles) {
+            showVehicle(v);
+        }
 
     }
 

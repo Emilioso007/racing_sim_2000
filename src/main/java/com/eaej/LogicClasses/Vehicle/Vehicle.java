@@ -1,9 +1,9 @@
 package com.eaej.LogicClasses.Vehicle;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import com.eaej.LogicClasses.Level.Level;
+import com.eaej.LogicClasses.Utility.KH;
 
 import processing.core.PVector;
 
@@ -13,6 +13,12 @@ public class Vehicle {
 
     public float maxSpeed = 5;
 
+    public int playerID = 0;
+
+    public final static int PLAYER_WASD = 0;
+    public final static int PLAYER_ARROW = 1;
+    public final static int PLAYER_AI = 2;
+
     public Vehicle(float x, float y) {
         pos = new PVector(x, y);
         vel = new PVector(0, 0);
@@ -20,12 +26,43 @@ public class Vehicle {
     }
 
     public void update() {
-        applyForce();
 
-        vel.limit(maxSpeed);
+        if (playerID == PLAYER_AI) {
+            applyForce();
+        } else if (playerID == PLAYER_WASD) {
+            if (KH.pressed("W")) {
+                applyForce(getHeading());
+            }
+            if (KH.pressed("S")) {
+                applyForce(getHeading().mult(-1));
+            }
+            if (KH.pressed("A")) {
+                rotate(-0.1f);
+            }
+            if (KH.pressed("D")) {
+                rotate(0.1f);
+            }
+        } else if (playerID == PLAYER_ARROW) {
+            if (KH.pressed("UP")) {
+                applyForce(getHeading());
+            }
+            if (KH.pressed("DOWN")) {
+                applyForce(getHeading().mult(-1));
+            }
+            if (KH.pressed("LEFT")) {
+                rotate(-0.1f);
+            }
+            if (KH.pressed("RIGHT")) {
+                rotate(0.1f);
+            }
+        }
+
         vel.add(acc);
+        // vel.limit(maxSpeed);
         pos.add(vel);
         acc.mult(0);
+
+        System.out.println(vel.mag());
 
     }
 
@@ -51,7 +88,7 @@ public class Vehicle {
     PVector target = new PVector();
     PVector futurePos = new PVector();
     double worldRecord;
-    int radius = 5;
+    int radius = 10;
 
     Level level;
 
@@ -108,7 +145,7 @@ public class Vehicle {
         desired.mult(20);
 
         PVector steer = PVector.sub(desired, vel);
-        steer.limit(1);
+        steer.limit(2.5f);
 
         return steer;
     }

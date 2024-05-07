@@ -42,7 +42,6 @@ public class LevelTest extends Screen {
         p.popMatrix();
     }
 
-    
     public void showLines(ArrayList<PVector> points, int color, int size) {
 
         p.stroke(color);
