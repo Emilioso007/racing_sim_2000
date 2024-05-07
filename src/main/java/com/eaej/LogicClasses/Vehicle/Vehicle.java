@@ -58,11 +58,11 @@ public class Vehicle {
         }
 
         vel.add(acc);
-        // vel.limit(maxSpeed);
+        vel.limit(maxSpeed);
         pos.add(vel);
         acc.mult(0);
 
-        System.out.println(vel.mag());
+        // System.out.println(vel.mag());
 
     }
 
@@ -162,5 +162,25 @@ public class Vehicle {
         ab.mult(ap.dot(ab));
         PVector normalPoint = PVector.add(a, ab);
         return normalPoint;
+    }
+
+    public PVector getFuturePosition() {
+        return futurePos;
+    }
+
+    public PVector getNormal() {
+        return normal;
+    }
+
+    public double getWorldRecord() {
+        return worldRecord;
+    }
+
+    public int getRadius() {
+        return radius;
+    }
+
+    public PVector getTarget() {
+        return target;
     }
 }

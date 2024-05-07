@@ -50,6 +50,10 @@ public class LocalPVE extends Screen {
             }
         }
 
+        if (KH.clicked("P")) {
+            debug = !debug;
+        }
+
         for (Vehicle v : vehicles) {
             v.update();
         }
