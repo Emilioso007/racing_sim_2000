@@ -14,13 +14,15 @@ public class Vehicle {
 
     public PVector pos;
 
-    public static PVector vel;
+    public PVector vel;
 
     public PVector acc;
 
     public float maxSpeed = 5;
 
     public int playerID = 0;
+
+    public int counter = 0;
 
     public final static int PLAYER_WASD = 0;
     public final static int PLAYER_ARROW = 1;
@@ -70,7 +72,7 @@ public class Vehicle {
         pos.add(vel);
         acc.mult(0);
 
-        // System.out.println(vel.mag());
+        System.out.println(vel.mag());
 
     }
 
