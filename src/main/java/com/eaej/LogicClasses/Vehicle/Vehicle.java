@@ -5,11 +5,18 @@ import java.util.ArrayList;
 import com.eaej.LogicClasses.Level.Level;
 import com.eaej.LogicClasses.Utility.KH;
 
-import processing.core.PVector;
+import processing.core.*;
+import processing.core.PApplet;
 
 public class Vehicle {
 
-    public PVector pos, vel, acc;
+    PApplet p;
+
+    public PVector pos;
+
+    public static PVector vel;
+
+    public PVector acc;
 
     public float maxSpeed = 5;
 
@@ -19,7 +26,8 @@ public class Vehicle {
     public final static int PLAYER_ARROW = 1;
     public final static int PLAYER_AI = 2;
 
-    public Vehicle(float x, float y) {
+    public Vehicle(PApplet p, float x, float y) {
+        this.p = p;
         pos = new PVector(x, y);
         vel = new PVector(0, 0);
         acc = new PVector(0, 0);
@@ -138,7 +146,7 @@ public class Vehicle {
         }
     }
 
-    PVector seek(PVector target) {
+    public PVector seek(PVector target) {
         PVector desired = PVector.sub(target, pos);
 
         desired.normalize();
@@ -155,7 +163,7 @@ public class Vehicle {
         acc.add(force);
     }
 
-    PVector getNormalPoint(PVector p, PVector a, PVector b) {
+    public static PVector getNormalPoint(PVector p, PVector a, PVector b) {
         PVector ap = PVector.sub(p, a);
         PVector ab = PVector.sub(b, a);
         ab.normalize();

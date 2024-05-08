@@ -23,8 +23,8 @@ public class LocalPVE extends Screen {
 
         vehicles = new Vehicle[2];
 
-        vehicles[0] = new Vehicle(p.width / 2, p.height / 2);
-        vehicles[1] = new Vehicle(p.width / 2, p.height / 2);
+        vehicles[0] = new Vehicle(p, p.width / 2, p.height / 2);
+        vehicles[1] = new Vehicle(p, p.width / 2, p.height / 2);
 
         vehicles[0].playerID = Vehicle.PLAYER_WASD;
         vehicles[1].playerID = Vehicle.PLAYER_AI;

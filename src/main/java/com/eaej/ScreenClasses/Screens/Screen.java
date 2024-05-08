@@ -74,14 +74,14 @@ public class Screen {
 
         if (debug) {
             // Draw predicted future position
-            p.stroke(0);
+            p.stroke(0, 255, 0);
             p.fill(0, 255, 0);
             p.line(vehicle.getPosition().x, vehicle.getPosition().y,
                     vehicle.getFuturePosition().x, vehicle.getFuturePosition().y);
             p.ellipse(vehicle.getFuturePosition().x, vehicle.getFuturePosition().y, 4, 4);
 
             // Draw normal position
-            p.stroke(0);
+            p.stroke(0, 255, 0);
             p.fill(0, 255, 0);
             p.ellipse(vehicle.getNormal().x, vehicle.getNormal().y, 4, 4);
 
