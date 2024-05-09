@@ -40,6 +40,7 @@ public class Vehicle {
         } else if (playerID == PLAYER_WASD) {
             if (KH.pressed("W")) {
                 applyForce(getHeading());
+                System.out.println(acc);
             }
             if (KH.pressed("S")) {
                 applyForce(getHeading().mult(-1));
@@ -65,8 +66,10 @@ public class Vehicle {
             }
         }
 
+        acc.limit(0.1f);
         vel.add(acc);
-        vel.limit(maxSpeed);
+        // vel.limit(maxSpeed);
+        System.out.println(vel);
         pos.add(vel);
         acc.mult(0);
 
