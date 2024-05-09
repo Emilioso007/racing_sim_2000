@@ -21,15 +21,15 @@ public class LocalPVE extends Screen {
     public LocalPVE(PApplet p) {
         super(p);
 
+        level = LevelFactory.createBlobLevel(100, 2000);
+
         vehicles = new Vehicle[2];
 
-        vehicles[0] = new Vehicle(p, p.width / 2, p.height / 2);
-        vehicles[1] = new Vehicle(p, p.width / 2, p.height / 2);
+        vehicles[0] = new Vehicle(p, level.points.get(0).x, level.points.get(0).y);
+        vehicles[1] = new Vehicle(p, level.points.get(0).x, level.points.get(0).y);
 
         vehicles[0].playerID = Vehicle.PLAYER_WASD;
         vehicles[1].playerID = Vehicle.PLAYER_AI;
-
-        level = LevelFactory.createBlobLevel(100, 2000);
 
         for (Vehicle v : vehicles) {
             v.setLevel(level);

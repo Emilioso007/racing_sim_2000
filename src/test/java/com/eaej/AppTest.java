@@ -42,7 +42,6 @@ public class AppTest {
     public void testSeekBehaviourNotAtTarget() {
         Vehicle vehicle = new Vehicle(p, 0, 0);
         PVector target = new PVector(10, 10);
-        Vehicle.vel = new PVector(0, 0);
         assertEquals(vehicle.seek(target), new PVector(1.767767f, 1.767767f));
     }
 }

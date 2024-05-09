@@ -22,8 +22,6 @@ public class Vehicle {
 
     public int playerID = 0;
 
-    public int counter = 0;
-
     public final static int PLAYER_WASD = 0;
     public final static int PLAYER_ARROW = 1;
     public final static int PLAYER_AI = 2;
@@ -72,12 +70,11 @@ public class Vehicle {
         pos.add(vel);
         acc.mult(0);
 
-        System.out.println(vel.mag());
-
     }
 
     public void applyForce(PVector force) {
         acc.add(force);
+        acc.normalize();
     }
 
     public PVector getHeading() {
