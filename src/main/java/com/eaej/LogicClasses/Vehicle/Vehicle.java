@@ -24,6 +24,8 @@ public class Vehicle {
 
     public boolean separate = false;
 
+    private float c;
+
     public final static int PLAYER_WASD = 0;
     public final static int PLAYER_ARROW = 1;
     public final static int PLAYER_AI = 2;
@@ -88,7 +90,11 @@ public class Vehicle {
     }
 
     public void applyFriction() {
-        float c = 0.1f;
+        if (vel.mag() < 0.01f || vel.mag() == 0) {
+            c = 0;
+        } else
+            c = 0.05f;
+
         PVector friction = vel.copy();
         friction.mult(-1);
         friction.normalize();
@@ -179,19 +185,19 @@ public class Vehicle {
     public PVector steer;
 
     public PVector separate(Vehicle[] vehicles) {
-        float desiredSeparation = 100;
+        float desiredSeparation = 80;
         steer = new PVector(0, 0);
         int count = 0;
 
         for (Vehicle vehicle : vehicles) {
             float d = PVector.dist(pos, vehicle.pos);
             if (d > 0 && d < desiredSeparation) {
+                separate = true;
                 PVector diff = PVector.sub(pos, vehicle.pos);
                 diff.normalize();
                 diff.div(d);
                 steer.add(diff);
                 count++;
-                separate = true;
             } else
                 separate = false;
         }
