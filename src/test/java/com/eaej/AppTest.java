@@ -86,4 +86,15 @@ public class AppTest {
         vehicle.update();
         assertEquals(vehicle.pos, new PVector(0, 0));
     }
+
+    @Test
+    public void testSeparateBehaviour() {
+        Vehicle vehicle = new Vehicle(p, 1, 1);
+        Vehicle other = new Vehicle(p, 10, 10);
+        vehicle.vel = new PVector(1, 1);
+        other.vel = new PVector(1, 1);
+        vehicle.separate(new Vehicle[] { other });
+        assertEquals(vehicle.vel, new PVector(0.70710677f, 0.70710677f));
+
+    }
 }
