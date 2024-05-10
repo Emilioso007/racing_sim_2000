@@ -60,7 +60,7 @@ public class AppTest {
 
     @Test
     public void testVehicleSlowingDown() {
-        Vehicle vehicle = new Vehicle(p, 0, 0, 3);
+        Vehicle vehicle = new Vehicle(p, 0, 0, 5);
         vehicle.playerID = Vehicle.PLAYER_WASD;
         vehicle.vel = new PVector(1, 1);
         vehicle.update();
@@ -70,7 +70,7 @@ public class AppTest {
 
     @Test
     public void testVehicleRotatingWhenMoving() {
-        Vehicle vehicle = new Vehicle(p, 0, 0, 3);
+        Vehicle vehicle = new Vehicle(p, 0, 0, 5);
         vehicle.playerID = Vehicle.PLAYER_WASD;
         vehicle.vel = new PVector(1, 1);
         KH.simulateKeyPress("D");
