@@ -23,13 +23,19 @@ public class LocalPVE extends Screen {
 
         level = LevelFactory.createBlobLevel(100, 2000);
 
-        vehicles = new Vehicle[2];
+        vehicles = new Vehicle[5];
 
-        vehicles[0] = new Vehicle(p, level.points.get(0).x, level.points.get(0).y);
-        vehicles[1] = new Vehicle(p, level.points.get(0).x, level.points.get(0).y);
+        vehicles[0] = new Vehicle(p, level.points.get(0).x, level.points.get(0).y, 3);
+        vehicles[1] = new Vehicle(p, level.points.get(0).x, level.points.get(0).y, 3);
+        vehicles[2] = new Vehicle(p, level.points.get(0).x, level.points.get(0).y, 4);
+        vehicles[3] = new Vehicle(p, level.points.get(0).x, level.points.get(0).y, 5);
+        vehicles[4] = new Vehicle(p, level.points.get(0).x, level.points.get(0).y, 6);
 
         vehicles[0].playerID = Vehicle.PLAYER_WASD;
         vehicles[1].playerID = Vehicle.PLAYER_AI;
+        vehicles[2].playerID = Vehicle.PLAYER_AI;
+        vehicles[3].playerID = Vehicle.PLAYER_AI;
+        vehicles[4].playerID = Vehicle.PLAYER_AI;
 
         for (Vehicle v : vehicles) {
             v.setLevel(level);
@@ -88,4 +94,7 @@ public class LocalPVE extends Screen {
 
     }
 
+    public static Vehicle[] getVehicles() {
+        return vehicles;
+    }
 }

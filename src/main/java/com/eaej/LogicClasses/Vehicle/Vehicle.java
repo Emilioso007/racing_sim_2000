@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.eaej.LogicClasses.Level.Level;
 import com.eaej.LogicClasses.Utility.KH;
+import com.eaej.ScreenClasses.Screens.LocalPVE;
 
 import processing.core.*;
 
@@ -17,19 +18,20 @@ public class Vehicle {
 
     public PVector acc;
 
-    public float maxSpeed = 5;
-
     public int playerID = 0;
+
+    public float maxSpeed;
 
     public final static int PLAYER_WASD = 0;
     public final static int PLAYER_ARROW = 1;
     public final static int PLAYER_AI = 2;
 
-    public Vehicle(PApplet p, float x, float y) {
+    public Vehicle(PApplet p, float x, float y, float maxSpeed) {
         this.p = p;
         pos = new PVector(x, y);
         vel = new PVector(0, 0);
         acc = new PVector(0, 0);
+        this.maxSpeed = maxSpeed;
     }
 
     public void update() {
@@ -51,7 +53,7 @@ public class Vehicle {
                 }
             }
             if (!KH.pressed("W") && !KH.pressed("S")) {
-                applyFriction();
+                // applyFriction();
             }
 
         } else if (playerID == PLAYER_ARROW) {
@@ -68,12 +70,11 @@ public class Vehicle {
                 rotate(0.05f);
             }
             if (!KH.pressed("UP") && !KH.pressed("DOWN")) {
-                applyFriction();
+                // applyFriction();
             }
         }
 
         acc.limit(0.05f);
-        System.out.println(acc);
         vel.add(acc);
         vel.limit(maxSpeed);
         pos.add(vel);
@@ -173,8 +174,40 @@ public class Vehicle {
         return steer;
     }
 
+    public PVector steer;
+
+    public PVector separate(Vehicle[] vehicles) {
+        float desiredSeparation = 25;
+        steer = new PVector(0, 0);
+        int count = 0;
+
+        for (Vehicle vehicle : vehicles) {
+            float d = PVector.dist(pos, vehicle.pos);
+            if (d > 0 && d < desiredSeparation) {
+                PVector diff = PVector.sub(pos, vehicle.pos);
+                diff.normalize();
+                diff.div(d);
+                steer.add(diff);
+                count++;
+            }
+        }
+
+        if (count > 0) {
+            steer.div((float) count);
+        }
+
+        if (steer.mag() > 0) {
+            steer.normalize();
+            steer.mult(maxSpeed);
+            steer.sub(vel);
+        }
+
+        return steer;
+    }
+
     void applyForce() {
         PVector force = follow();
+        acc.add(separate(LocalPVE.getVehicles()).mult(3));
         acc.add(force);
     }
 
