@@ -22,6 +22,8 @@ public class Vehicle {
 
     public float maxSpeed;
 
+    public boolean separate = false;
+
     public final static int PLAYER_WASD = 0;
     public final static int PLAYER_ARROW = 1;
     public final static int PLAYER_AI = 2;
@@ -53,7 +55,7 @@ public class Vehicle {
                 }
             }
             if (!KH.pressed("W") && !KH.pressed("S")) {
-                // applyFriction();
+                applyFriction();
             }
 
         } else if (playerID == PLAYER_ARROW) {
@@ -70,7 +72,7 @@ public class Vehicle {
                 rotate(0.05f);
             }
             if (!KH.pressed("UP") && !KH.pressed("DOWN")) {
-                // applyFriction();
+                applyFriction();
             }
         }
 
@@ -177,7 +179,7 @@ public class Vehicle {
     public PVector steer;
 
     public PVector separate(Vehicle[] vehicles) {
-        float desiredSeparation = 25;
+        float desiredSeparation = 100;
         steer = new PVector(0, 0);
         int count = 0;
 
@@ -189,7 +191,9 @@ public class Vehicle {
                 diff.div(d);
                 steer.add(diff);
                 count++;
-            }
+                separate = true;
+            } else
+                separate = false;
         }
 
         if (count > 0) {
@@ -201,7 +205,6 @@ public class Vehicle {
             steer.mult(maxSpeed);
             steer.sub(vel);
         }
-
         return steer;
     }
 

@@ -11,7 +11,10 @@ import com.eaej.LogicClasses.Utility.KH;
 public class Screen {
 
     public PApplet p;
+
     boolean debug = false;
+
+    int colour;
 
     public Screen(PApplet p) {
         this.p = p;
@@ -37,7 +40,12 @@ public class Screen {
         points.add(vehicle.getPosition().copy().add(left));
         points.add(vehicle.getPosition().copy().add(right));
 
-        showLines(points, 0xFF0000FF, 5);
+        if (debug && vehicle.separate) {
+            colour = 0xFFFF0000;
+        } else {
+            colour = 0xFF0000FF;
+        }
+        showLines(points, colour, 5);
 
         if (vehicle.playerID == Vehicle.PLAYER_AI) {
             debug(vehicle);

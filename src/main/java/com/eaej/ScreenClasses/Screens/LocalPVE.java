@@ -18,6 +18,8 @@ public class LocalPVE extends Screen {
     private final int THIRD_PERSON = 1;
     private int cameraMode = FIRST_PERSON;
 
+    private int timer;
+
     public LocalPVE(PApplet p) {
         super(p);
 
@@ -41,10 +43,13 @@ public class LocalPVE extends Screen {
             v.setLevel(level);
         }
 
+        timer = 0;
+
     }
 
     @Override
     public void update() {
+        timer++;
 
         if (KH.clicked("C")) {
             cameraMode = (cameraMode + 1) % 2;
@@ -70,7 +75,7 @@ public class LocalPVE extends Screen {
     public void render() {
 
         p.background(0);
-
+        p.pushMatrix();
         if (cameraMode == FIRST_PERSON) {
             p.translate(p.width / 2 - vehicles[0].getPosition().x, p.height / 2 -
                     vehicles[0].getPosition().y);
@@ -83,18 +88,24 @@ public class LocalPVE extends Screen {
             float scale = 0.5f * p.height / maxNoise;
             p.scale(scale);
             System.out.println(scale);
-        }
 
+        }
         showLines(level.getPoints(), 0xFF3B3B3B, 120);
         showLines(level.getPoints(), 0xFFFFFFFF, 5);
-
         for (Vehicle v : vehicles) {
             showVehicle(v);
         }
-
+        p.popMatrix();
+        timer();
     }
 
     public static Vehicle[] getVehicles() {
         return vehicles;
+    }
+
+    public void timer() {
+        p.fill(255);
+        p.textSize(32);
+        p.text(timer / p.frameRate, p.width - 100, 30);
     }
 }
