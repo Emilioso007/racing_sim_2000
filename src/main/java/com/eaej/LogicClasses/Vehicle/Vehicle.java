@@ -6,7 +6,6 @@ import com.eaej.LogicClasses.Level.Level;
 import com.eaej.LogicClasses.Utility.KH;
 
 import processing.core.*;
-import processing.core.PApplet;
 
 public class Vehicle {
 
@@ -34,23 +33,27 @@ public class Vehicle {
     }
 
     public void update() {
-
         if (playerID == PLAYER_AI) {
             applyForce();
         } else if (playerID == PLAYER_WASD) {
             if (KH.pressed("W")) {
                 applyForce(getHeading());
-                System.out.println(acc);
             }
             if (KH.pressed("S")) {
                 applyForce(getHeading().mult(-1));
             }
-            if (KH.pressed("A")) {
-                rotate(-0.1f);
+            if (vel.mag() >= 0.05) {
+                if (KH.pressed("A")) {
+                    rotate(-0.05f);
+                }
+                if (KH.pressed("D")) {
+                    rotate(0.05f);
+                }
             }
-            if (KH.pressed("D")) {
-                rotate(0.1f);
+            if (!KH.pressed("W") && !KH.pressed("S")) {
+                applyFriction();
             }
+
         } else if (playerID == PLAYER_ARROW) {
             if (KH.pressed("UP")) {
                 applyForce(getHeading());
@@ -59,25 +62,35 @@ public class Vehicle {
                 applyForce(getHeading().mult(-1));
             }
             if (KH.pressed("LEFT")) {
-                rotate(-0.1f);
+                rotate(-0.05f);
             }
             if (KH.pressed("RIGHT")) {
-                rotate(0.1f);
+                rotate(0.05f);
+            }
+            if (!KH.pressed("UP") && !KH.pressed("DOWN")) {
+                applyFriction();
             }
         }
 
-        acc.limit(0.1f);
+        acc.limit(0.05f);
+        System.out.println(acc);
         vel.add(acc);
-        // vel.limit(maxSpeed);
-        System.out.println(vel);
+        vel.limit(maxSpeed);
         pos.add(vel);
         acc.mult(0);
-
     }
 
     public void applyForce(PVector force) {
         acc.add(force);
-        acc.normalize();
+    }
+
+    public void applyFriction() {
+        float c = 0.1f;
+        PVector friction = vel.copy();
+        friction.mult(-1);
+        friction.normalize();
+        friction.mult(c);
+        acc.add(friction);
     }
 
     public PVector getHeading() {
@@ -109,7 +122,7 @@ public class Vehicle {
     PVector follow() {
         PVector future = vel.copy();
         future.normalize();
-        future.mult(25);
+        future.mult(30);
         futurePos = future.add(pos);
 
         worldRecord = Double.POSITIVE_INFINITY;
@@ -152,10 +165,10 @@ public class Vehicle {
         PVector desired = PVector.sub(target, pos);
 
         desired.normalize();
-        desired.mult(20);
+        desired.mult(3);
 
         PVector steer = PVector.sub(desired, vel);
-        steer.limit(2.5f);
+        steer.limit(1000);
 
         return steer;
     }

@@ -10,7 +10,7 @@ import processing.core.PVector;
 
 public class LocalPVE extends Screen {
 
-    private Vehicle[] vehicles;
+    public static Vehicle[] vehicles;
 
     private Level level;
 
