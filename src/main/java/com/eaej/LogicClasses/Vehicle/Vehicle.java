@@ -4,29 +4,41 @@ import java.util.ArrayList;
 
 import com.eaej.LogicClasses.Level.Level;
 import com.eaej.LogicClasses.Utility.KH;
+import com.eaej.ScreenClasses.Screens.LocalPVE;
 
-import processing.core.PVector;
+import processing.core.*;
 
 public class Vehicle {
 
-    public PVector pos, vel, acc;
+    PApplet p;
 
-    public float maxSpeed = 5;
+    public PVector pos;
+
+    public PVector vel;
+
+    public PVector acc;
 
     public int playerID = 0;
+
+    public float maxSpeed;
+
+    public boolean separate = false;
+
+    private float c;
 
     public final static int PLAYER_WASD = 0;
     public final static int PLAYER_ARROW = 1;
     public final static int PLAYER_AI = 2;
 
-    public Vehicle(float x, float y) {
+    public Vehicle(PApplet p, float x, float y, float maxSpeed) {
+        this.p = p;
         pos = new PVector(x, y);
         vel = new PVector(0, 0);
         acc = new PVector(0, 0);
+        this.maxSpeed = maxSpeed;
     }
 
     public void update() {
-
         if (playerID == PLAYER_AI) {
             applyForce();
         } else if (playerID == PLAYER_WASD) {
@@ -36,12 +48,18 @@ public class Vehicle {
             if (KH.pressed("S")) {
                 applyForce(getHeading().mult(-1));
             }
-            if (KH.pressed("A")) {
-                rotate(-0.1f);
+            if (vel.mag() >= 0.05) {
+                if (KH.pressed("A")) {
+                    rotate(-0.05f);
+                }
+                if (KH.pressed("D")) {
+                    rotate(0.05f);
+                }
             }
-            if (KH.pressed("D")) {
-                rotate(0.1f);
+            if (!KH.pressed("W") && !KH.pressed("S")) {
+                applyFriction();
             }
+
         } else if (playerID == PLAYER_ARROW) {
             if (KH.pressed("UP")) {
                 applyForce(getHeading());
@@ -50,24 +68,38 @@ public class Vehicle {
                 applyForce(getHeading().mult(-1));
             }
             if (KH.pressed("LEFT")) {
-                rotate(-0.1f);
+                rotate(-0.05f);
             }
             if (KH.pressed("RIGHT")) {
-                rotate(0.1f);
+                rotate(0.05f);
+            }
+            if (!KH.pressed("UP") && !KH.pressed("DOWN")) {
+                applyFriction();
             }
         }
 
+        acc.limit(0.05f);
         vel.add(acc);
         vel.limit(maxSpeed);
         pos.add(vel);
         acc.mult(0);
-
-        // System.out.println(vel.mag());
-
     }
 
     public void applyForce(PVector force) {
         acc.add(force);
+    }
+
+    public void applyFriction() {
+        if (vel.mag() < 0.01f || vel.mag() == 0) {
+            c = 0;
+        } else
+            c = 0.05f;
+
+        PVector friction = vel.copy();
+        friction.mult(-1);
+        friction.normalize();
+        friction.mult(c);
+        acc.add(friction);
     }
 
     public PVector getHeading() {
@@ -99,7 +131,7 @@ public class Vehicle {
     PVector follow() {
         PVector future = vel.copy();
         future.normalize();
-        future.mult(25);
+        future.mult(30);
         futurePos = future.add(pos);
 
         worldRecord = Double.POSITIVE_INFINITY;
@@ -138,24 +170,57 @@ public class Vehicle {
         }
     }
 
-    PVector seek(PVector target) {
+    public PVector seek(PVector target) {
         PVector desired = PVector.sub(target, pos);
 
         desired.normalize();
-        desired.mult(20);
+        desired.mult(3);
 
         PVector steer = PVector.sub(desired, vel);
-        steer.limit(2.5f);
+        steer.limit(1000);
 
+        return steer;
+    }
+
+    public PVector steer;
+
+    public PVector separate(Vehicle[] vehicles) {
+        float desiredSeparation = 80;
+        steer = new PVector(0, 0);
+        int count = 0;
+
+        for (Vehicle vehicle : vehicles) {
+            float d = PVector.dist(pos, vehicle.pos);
+            if (d > 0 && d < desiredSeparation) {
+                separate = true;
+                PVector diff = PVector.sub(pos, vehicle.pos);
+                diff.normalize();
+                diff.div(d);
+                steer.add(diff);
+                count++;
+            } else
+                separate = false;
+        }
+
+        if (count > 0) {
+            steer.div((float) count);
+        }
+
+        if (steer.mag() > 0) {
+            steer.normalize();
+            steer.mult(maxSpeed);
+            steer.sub(vel);
+        }
         return steer;
     }
 
     void applyForce() {
         PVector force = follow();
+        acc.add(separate(LocalPVE.getVehicles()).mult(3));
         acc.add(force);
     }
 
-    PVector getNormalPoint(PVector p, PVector a, PVector b) {
+    public static PVector getNormalPoint(PVector p, PVector a, PVector b) {
         PVector ap = PVector.sub(p, a);
         PVector ab = PVector.sub(b, a);
         ab.normalize();

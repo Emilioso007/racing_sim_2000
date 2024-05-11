@@ -6,7 +6,7 @@ import processing.core.PVector;
 
 public class Level {
 
-    private ArrayList<PVector> points = new ArrayList<PVector>();
+    public ArrayList<PVector> points = new ArrayList<PVector>();
 
     public Level() {
 

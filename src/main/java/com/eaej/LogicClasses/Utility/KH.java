@@ -85,4 +85,7 @@ public class KH {
         }
     }
 
+    public static void simulateKeyPress(String key) {
+        keys.put(key, PRESSED);
+    }
 }
