@@ -1,5 +1,7 @@
 package com.eaej;
 
+import java.util.Locale;
+
 import com.eaej.LogicClasses.Utility.KH;
 import com.eaej.LogicClasses.Utility.MH;
 import com.eaej.LogicClasses.Utility.PerlinNoise;
@@ -18,6 +20,7 @@ public class App extends PApplet {
     public ScreenManager screenManager;
 
     public static void main(String[] args) {
+        Locale.setDefault(Locale.US);
         PApplet.main("com.eaej.App");
     }
 

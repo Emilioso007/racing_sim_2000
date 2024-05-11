@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.eaej.LogicClasses.Vehicle.Vehicle;
 
 import processing.core.PApplet;
+import processing.core.PGraphics;
 import processing.core.PVector;
 import com.eaej.LogicClasses.Utility.KH;
 
@@ -52,6 +53,30 @@ public class Screen {
         }
     }
 
+    public void showVehicle(Vehicle vehicle, PGraphics pG) {
+
+        ArrayList<PVector> points = new ArrayList<PVector>();
+
+        PVector heading = vehicle.getHeading().copy().mult(20);
+        PVector left = heading.copy().rotate(PApplet.radians(135));
+        PVector right = heading.copy().rotate(PApplet.radians(-135));
+
+        points.add(vehicle.getPosition().copy().add(heading));
+        points.add(vehicle.getPosition().copy().add(left));
+        points.add(vehicle.getPosition().copy().add(right));
+
+        if (debug && vehicle.separate) {
+            colour = 0xFFFF0000;
+        } else {
+            colour = 0xFF0000FF;
+        }
+        showLines(points, colour, 5, pG);
+
+        if (vehicle.playerID == Vehicle.PLAYER_AI) {
+            debug(vehicle);
+        }
+    }
+
     public void showLines(ArrayList<PVector> points, int color, int size) {
 
         p.stroke(color);
@@ -64,6 +89,21 @@ public class Screen {
         }
         p.vertex(points.get(0).x, points.get(0).y);
         p.endShape();
+
+    }
+
+    public void showLines(ArrayList<PVector> points, int color, int size, PGraphics pG) {
+
+        pG.stroke(color);
+        pG.strokeWeight(size);
+        pG.noFill();
+
+        pG.beginShape();
+        for (PVector point : points) {
+            pG.vertex(point.x, point.y);
+        }
+        pG.vertex(points.get(0).x, points.get(0).y);
+        pG.endShape();
 
     }
 
