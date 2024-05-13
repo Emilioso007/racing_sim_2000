@@ -7,6 +7,7 @@ import com.eaej.ScreenClasses.ScreenObjects.Button.ButtonHandler;
 
 import processing.core.PApplet;
 import processing.core.PGraphics;
+import processing.core.PImage;
 import processing.core.PVector;
 
 public class Screen {
@@ -19,9 +20,18 @@ public class Screen {
 
     public ButtonHandler buttonHandler;
 
+    public PImage[] carImages;
+
     public Screen(PApplet p) {
         this.p = p;
         buttonHandler = new ButtonHandler(p);
+
+        carImages = new PImage[5];
+        carImages[0] = p.loadImage("src/main/java/com/eaej/Resources/CarImages/RedCar.png");
+        carImages[1] = p.loadImage("src/main/java/com/eaej/Resources/CarImages/GreenCar.png");
+        carImages[2] = p.loadImage("src/main/java/com/eaej/Resources/CarImages/PurpleCar.png");
+        carImages[3] = p.loadImage("src/main/java/com/eaej/Resources/CarImages/BlueCar.png");
+        carImages[4] = p.loadImage("src/main/java/com/eaej/Resources/CarImages/YellowCar.png");
     }
 
     public void update() {
@@ -78,6 +88,38 @@ public class Screen {
         if (vehicle.playerID == Vehicle.PLAYER_AI) {
             debug(vehicle);
         }
+    }
+
+    public void showVehicle(Vehicle vehicle, PImage image) {
+
+        showImage(image, vehicle.getPosition(), vehicle.getHeading().heading() + PApplet.HALF_PI);
+
+    }
+
+    public void showVehicle(Vehicle vehicle, PImage image, PGraphics pG) {
+
+        showImage(image, vehicle.getPosition(), vehicle.getHeading().heading() + PApplet.HALF_PI, pG);
+
+    }
+
+    public void showImage(PImage image, PVector position, float angle) {
+
+        p.pushMatrix();
+        p.translate(position.x, position.y);
+        p.rotate(angle);
+        p.image(image, -image.width / 2, -image.height / 2);
+        p.popMatrix();
+
+    }
+
+    public void showImage(PImage image, PVector position, float angle, PGraphics pG) {
+
+        pG.pushMatrix();
+        pG.translate(position.x, position.y);
+        pG.rotate(angle);
+        pG.image(image, -image.width / 2, -image.height / 2);
+        pG.popMatrix();
+
     }
 
     public void showLines(ArrayList<PVector> points, int color, int size) {

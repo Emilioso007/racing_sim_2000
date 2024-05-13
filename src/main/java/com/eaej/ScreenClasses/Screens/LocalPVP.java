@@ -122,8 +122,8 @@ public class LocalPVP extends Screen {
             showLines(level.getPoints(), 0xFF3B3B3B, 120, pG[i]);
             showLines(level.getPoints(), 0xFFFFFFFF, 5, pG[i]);
 
-            for (Vehicle vehicle : vehicles) {
-                showVehicle(vehicle, pG[i]);
+            for (int j = 0; j < vehicles.length; j++) { 
+                showVehicle(vehicles[j], carImages[j], pG[i]);
             }
 
             pG[i].fill(255, 0, 0);
