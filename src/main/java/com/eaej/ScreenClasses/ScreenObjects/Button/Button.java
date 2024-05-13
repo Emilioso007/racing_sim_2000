@@ -52,6 +52,7 @@ public class Button {
     }
 
     public void render(PApplet p) {
+        p.noStroke();
 
         p.pushMatrix();
         p.translate(x, y);
