@@ -20,22 +20,27 @@ public class Vehicle {
 
     public int playerID = 0;
 
-    public float maxSpeed;
+    public static float maxSpeed;
 
     public boolean separate = false;
 
     private float c;
 
+    public float steerMax;
+
+    public PVector steer;
+
     public final static int PLAYER_WASD = 0;
     public final static int PLAYER_ARROW = 1;
     public final static int PLAYER_AI = 2;
 
-    public Vehicle(PApplet p, float x, float y, float maxSpeed) {
+    public Vehicle(PApplet p, float x, float y, float maxSpeed, float steerMax) {
         this.p = p;
         pos = new PVector(x, y);
         vel = new PVector(0, 0);
         acc = new PVector(0, 0);
         this.maxSpeed = maxSpeed;
+        this.steerMax = steerMax;
     }
 
     public void update() {
@@ -176,15 +181,12 @@ public class Vehicle {
         PVector desired = PVector.sub(target, pos);
 
         desired.normalize();
-        desired.mult(3);
-
+        desired.mult(maxSpeed);
         PVector steer = PVector.sub(desired, vel);
-        steer.limit(1000);
+        steer.limit(steerMax);
 
         return steer;
     }
-
-    public PVector steer;
 
     public PVector separate(Vehicle[] vehicles) {
         float desiredSeparation = 80;

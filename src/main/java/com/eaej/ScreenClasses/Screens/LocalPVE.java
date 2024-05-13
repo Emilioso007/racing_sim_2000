@@ -33,19 +33,36 @@ public class LocalPVE extends Screen {
 
         vehicles = new Vehicle[6];
 
-        vehicles[0] = new Vehicle(p, level.points.get(0).x, level.points.get(0).y, 3);
-        vehicles[1] = new Vehicle(p, level.points.get(0).x, level.points.get(0).y, 3);
-        vehicles[2] = new Vehicle(p, level.points.get(0).x, level.points.get(0).y, 4);
-        vehicles[3] = new Vehicle(p, level.points.get(0).x, level.points.get(0).y, 5);
-        vehicles[4] = new Vehicle(p, level.points.get(0).x, level.points.get(0).y, 6);
-        vehicles[5] = new Vehicle(p, level.points.get(0).x, level.points.get(0).y, 6);
+        vehicles = new Vehicle[aiAmount + 1];
 
+        vehicles[0] = new Vehicle(p, level.points.get(0).x, level.points.get(0).y, 3, 3);
         vehicles[0].playerID = Vehicle.PLAYER_WASD;
-        vehicles[1].playerID = Vehicle.PLAYER_AI;
-        vehicles[2].playerID = Vehicle.PLAYER_AI;
-        vehicles[3].playerID = Vehicle.PLAYER_AI;
-        vehicles[4].playerID = Vehicle.PLAYER_AI;
-        vehicles[5].playerID = Vehicle.PLAYER_AI;
+
+        int maxSpeed, steerMax;
+
+        switch (difficulty) {
+            case 1:
+                maxSpeed = 3;
+                steerMax = 5;
+                break;
+            case 2:
+                maxSpeed = 4;
+                steerMax = 7;
+                break;
+            case 3:
+                maxSpeed = 5;
+                steerMax = 100;
+                break;
+            default:
+                maxSpeed = 3;
+                steerMax = 3;
+                break;
+        }
+
+        for (int i = 1; i < aiAmount + 1; i++) {
+            vehicles[i] = new Vehicle(p, level.points.get(0).x, level.points.get(0).y, maxSpeed, steerMax);
+            vehicles[i].playerID = Vehicle.PLAYER_AI;
+        }
 
         for (Vehicle v : vehicles) {
             v.setLevel(level);
@@ -81,8 +98,9 @@ public class LocalPVE extends Screen {
             v.update();
         }
 
-        if(vehicles[0].hitCheckpoint(level.getCurrentCheckpoint())) {
-            level.setCurrentCheckpoint(level.getPoints().get((level.getPoints().indexOf(level.getCurrentCheckpoint()) + 5) % level.getPoints().size()));
+        if (vehicles[0].hitCheckpoint(level.getCurrentCheckpoint())) {
+            level.setCurrentCheckpoint(level.getPoints()
+                    .get((level.getPoints().indexOf(level.getCurrentCheckpoint()) + 5) % level.getPoints().size()));
         }
 
         long currentTime = System.currentTimeMillis();
@@ -111,9 +129,9 @@ public class LocalPVE extends Screen {
         }
         showLines(level.getPoints(), 0xFF3B3B3B, 120);
         showLines(level.getPoints(), 0xFFFFFFFF, 5);
-        
+
         for (int i = 0; i < vehicles.length; i++) {
-            showVehicle(vehicles[i], carImages[i==0?0:((i%4)+1)]);
+            showVehicle(vehicles[i], carImages[i == 0 ? 0 : ((i % 4) + 1)]);
         }
 
         p.noFill();
@@ -136,4 +154,5 @@ public class LocalPVE extends Screen {
         p.textSize(32);
         p.text(elapsedTime / 1000f, p.width - 100, 30);
     }
+
 }
