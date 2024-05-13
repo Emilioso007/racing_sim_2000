@@ -10,12 +10,12 @@ public class ScreenManager {
     }
 
     public static void run() {
-        try {
+        // try {
             currentScreen.update();
             currentScreen.render();
-        } catch (Exception e) {
-            System.out.println("### Error! Screen is null ###");
-        }
+        // } catch (Exception e) {
+        //     System.out.println("### Error! Screen is null ###");
+        // }
     }
 
     public static void setCurrentScreen(Screen screen) {

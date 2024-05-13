@@ -1,32 +1,43 @@
 package com.eaej.ScreenClasses.Screens;
 
-import com.eaej.LogicClasses.Utility.KH;
-import com.eaej.LogicClasses.Utility.MH;
 import com.eaej.ScreenClasses.ScreenManager;
+import com.eaej.ScreenClasses.ScreenObjects.Button.BH;
+import com.eaej.ScreenClasses.ScreenObjects.Button.Button;
 
 import processing.core.PApplet;
-import processing.core.PConstants;
 
 public class StartMenu extends Screen {
 
-    public StartMenu(PApplet p) {
+    private BH bh;
+
+    public StartMenu(final PApplet p) {
         super(p);
+        bh = new BH(p);
+        bh.addButton(new Button(100, 100, 200, 100, "Start", "start_button"));
+        bh.addButton(new Button(100, 300, 200, 100, "Exit", "exit_button"));
     }
 
     @Override
     public void update() {
-        if (MH.LEFT == MH.CLICKED || KH.clicked("ENTER")) {
-            ScreenManager.setCurrentScreen(new LocalPVP(p));
+        bh.update();
+        switch (bh.buttonPressed) {
+            case "start_button":
+                ScreenManager.setCurrentScreen(new LocalPVP(p));
+                break;
+            
+            case "exit_button":
+                p.exit();
+                break;
+
+            default:
+                break;
         }
     }
 
     @Override
     public void render() {
         p.background(0);
-        p.textSize(32);
-        p.textAlign(PConstants.CENTER, PConstants.CENTER);
-        p.fill(255);
-        p.text("Click anywhere to start", p.width / 2, p.height / 2);
+        bh.render();
     }
 
 }
