@@ -252,7 +252,6 @@ public class Vehicle {
     }
 
     public boolean hitCheckpoint(PVector currentCheckpoint) {
-        System.out.println(PVector.dist(pos, currentCheckpoint));
         return PVector.dist(pos, currentCheckpoint) < 60;
     }
 }

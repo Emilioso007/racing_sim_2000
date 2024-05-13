@@ -102,15 +102,15 @@ public class LocalPVE extends Screen {
             p.translate(p.width / 2, p.height / 2);
             float maxNoise = 0;
             for (PVector point : level.getPoints()) {
-                maxNoise = Math.max(maxNoise, point.z);
+                maxNoise = Math.max(maxNoise, PApplet.dist(point.x, point.y, p.width / 2, p.height / 2));
             }
             float scale = 0.5f * p.height / maxNoise;
             p.scale(scale);
             System.out.println(scale);
 
         }
-        showLines(level.getPoints(), 0xFF3B3B3B, 120);
-        showLines(level.getPoints(), 0xFFFFFFFF, 5);
+
+        showTrack(level.getPoints());
         
         for (int i = 0; i < vehicles.length; i++) {
             showVehicle(vehicles[i], carImages[i==0?0:((i%4)+1)]);
