@@ -4,6 +4,8 @@ import com.eaej.LogicClasses.Level.Level;
 import com.eaej.LogicClasses.Level.LevelFactory;
 import com.eaej.LogicClasses.Utility.KH;
 import com.eaej.LogicClasses.Vehicle.Vehicle;
+import com.eaej.ScreenClasses.ScreenManager;
+import com.eaej.ScreenClasses.ScreenObjects.Button.Button;
 
 import processing.core.PApplet;
 import processing.core.PVector;
@@ -18,10 +20,14 @@ public class LocalPVE extends Screen {
     private final int THIRD_PERSON = 1;
     private int cameraMode = FIRST_PERSON;
 
-    private int timer;
+    private long startTime;
+
+    private long elapsedTime;
 
     public LocalPVE(PApplet p, int aiAmount, int difficulty) {
         super(p);
+
+        buttonHandler.addButton(new Button(100, 100, 200, 100, "Back", "back_button"));
 
         level = LevelFactory.createBlobLevel(100, 2000);
 
@@ -43,13 +49,17 @@ public class LocalPVE extends Screen {
             v.setLevel(level);
         }
 
-        timer = 0;
-
+        startTime = System.currentTimeMillis();
     }
 
     @Override
     public void update() {
-        timer++;
+        buttonHandler.update();
+        switch (buttonHandler.buttonClicked) {
+            case "back_button":
+                ScreenManager.setCurrentScreen(new LocalPVESettings(p));
+                break;
+        }
 
         if (KH.clicked("C")) {
             cameraMode = (cameraMode + 1) % 2;
@@ -68,6 +78,9 @@ public class LocalPVE extends Screen {
         for (Vehicle v : vehicles) {
             v.update();
         }
+
+        long currentTime = System.currentTimeMillis();
+        elapsedTime = currentTime - startTime;
 
     }
 
@@ -97,6 +110,8 @@ public class LocalPVE extends Screen {
         }
         p.popMatrix();
         timer();
+
+        buttonHandler.render();
     }
 
     public static Vehicle[] getVehicles() {
@@ -106,6 +121,6 @@ public class LocalPVE extends Screen {
     public void timer() {
         p.fill(255);
         p.textSize(32);
-        p.text(timer / p.frameRate, p.width - 100, 30);
+        p.text(elapsedTime / 1000f, p.width - 100, 30);
     }
 }

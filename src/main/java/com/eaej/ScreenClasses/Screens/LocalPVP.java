@@ -26,7 +26,9 @@ public class LocalPVP extends Screen {
     private final int THIRD_PERSON = 1;
     private int cameraMode = FIRST_PERSON;
 
-    private int timer;
+    private long startTime;
+
+    private long elapsedTime;
 
     public LocalPVP(PApplet p) {
         super(p);
@@ -52,7 +54,7 @@ public class LocalPVP extends Screen {
         for (Vehicle v : vehicles) {
             v.setLevel(level);
         }
-        timer = 0;
+        startTime = System.currentTimeMillis();
     }
 
     @Override
@@ -66,8 +68,6 @@ public class LocalPVP extends Screen {
             default:
                 break;
         }
-
-        timer++;
 
         if (KH.clicked("C")) {
             cameraMode = (cameraMode + 1) % 2;
@@ -86,6 +86,8 @@ public class LocalPVP extends Screen {
         for (Vehicle v : vehicles) {
             v.update();
         }
+        long currentTime = System.currentTimeMillis();
+        elapsedTime = currentTime - startTime;
 
     }
 
@@ -152,6 +154,6 @@ public class LocalPVP extends Screen {
     public void timer() {
         p.fill(255);
         p.textSize(32);
-        p.text(timer / p.frameRate, p.width - 100, 30);
+        p.text(elapsedTime / 1000f, p.width - 100, 30);
     }
 }
