@@ -67,11 +67,13 @@ public class Vehicle {
             if (KH.pressed("DOWN")) {
                 applyForce(getHeading().mult(-1));
             }
-            if (KH.pressed("LEFT")) {
-                rotate(-0.05f);
-            }
-            if (KH.pressed("RIGHT")) {
-                rotate(0.05f);
+            if (vel.mag() >= 0.05) {
+                if (KH.pressed("LEFT")) {
+                    rotate(-0.05f);
+                }
+                if (KH.pressed("RIGHT")) {
+                    rotate(0.05f);
+                }
             }
             if (!KH.pressed("UP") && !KH.pressed("DOWN")) {
                 applyFriction();

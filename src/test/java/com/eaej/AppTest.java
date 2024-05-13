@@ -42,9 +42,9 @@ public class AppTest {
 
     @Test
     public void testSeekBehaviourNotAtTarget() {
-        Vehicle vehicle = new Vehicle(p, 0, 0, 0);
-        PVector target = new PVector(10, 10);
-        assertEquals(vehicle.seek(target), new PVector(2.1213202f, 2.1213202f));
+        Vehicle vehicle = new Vehicle(p, 0, 0, 5);
+        PVector target = new PVector(10, 5);
+        assertEquals(vehicle.seek(target), new PVector(2.6832814f, 1.3416407f));
     }
 
     @Test
@@ -52,9 +52,10 @@ public class AppTest {
         Vehicle vehicle = new Vehicle(p, 0, 0, 1);
         vehicle.playerID = Vehicle.PLAYER_WASD;
         vehicle.vel = new PVector(0, 0);
-        KH.simulateKeyPress("W");
+        KH.simulateKeyPress("W", KH.PRESSED);
         vehicle.update();
         assertEquals(vehicle.vel, new PVector(0.05f, 0));
+        KH.simulateKeyPress("W", KH.RELEASED);
     }
 
     @Test
@@ -72,9 +73,10 @@ public class AppTest {
         Vehicle vehicle = new Vehicle(p, 0, 0, 5);
         vehicle.playerID = Vehicle.PLAYER_WASD;
         vehicle.vel = new PVector(1, 1);
-        KH.simulateKeyPress("D");
+        KH.simulateKeyPress("D", KH.PRESSED);
         vehicle.update();
         assertEquals(vehicle.vel, new PVector(0.915227f, 1.0116513f));
+        KH.simulateKeyPress("D", KH.RELEASED);
     }
 
     @Test
