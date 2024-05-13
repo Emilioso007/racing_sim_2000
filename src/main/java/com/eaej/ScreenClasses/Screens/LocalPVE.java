@@ -81,6 +81,10 @@ public class LocalPVE extends Screen {
             v.update();
         }
 
+        if(vehicles[0].hitCheckpoint(level.getCurrentCheckpoint())) {
+            level.setCurrentCheckpoint(level.getPoints().get((level.getPoints().indexOf(level.getCurrentCheckpoint()) + 5) % level.getPoints().size()));
+        }
+
         long currentTime = System.currentTimeMillis();
         elapsedTime = currentTime - startTime;
 
@@ -111,6 +115,11 @@ public class LocalPVE extends Screen {
         for (int i = 0; i < vehicles.length; i++) {
             showVehicle(vehicles[i], carImages[i==0?0:((i%4)+1)]);
         }
+
+        p.noFill();
+        p.stroke(0xFF00FF00);
+        p.strokeWeight(5);
+        p.ellipse(level.getCurrentCheckpoint().x, level.getCurrentCheckpoint().y, 120, 120);
 
         p.popMatrix();
         timer();

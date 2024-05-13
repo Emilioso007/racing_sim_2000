@@ -8,6 +8,8 @@ public class Level {
 
     public ArrayList<PVector> points = new ArrayList<PVector>();
 
+    public PVector currentCheckpoint;
+
     public Level() {
 
     }
@@ -22,6 +24,14 @@ public class Level {
 
     public ArrayList<PVector> getPoints() {
         return points;
+    }
+
+    public PVector getCurrentCheckpoint() {
+        return currentCheckpoint;
+    }
+
+    public void setCurrentCheckpoint(PVector currentCheckpoint) {
+        this.currentCheckpoint = currentCheckpoint;
     }
 
 }

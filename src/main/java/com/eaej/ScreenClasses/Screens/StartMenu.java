@@ -1,7 +1,6 @@
 package com.eaej.ScreenClasses.Screens;
 
 import com.eaej.ScreenClasses.ScreenManager;
-import com.eaej.ScreenClasses.ScreenObjects.Button.ButtonHandler;
 import com.eaej.ScreenClasses.ScreenObjects.Button.Button;
 
 import processing.core.PApplet;

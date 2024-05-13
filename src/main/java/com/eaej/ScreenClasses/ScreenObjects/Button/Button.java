@@ -105,7 +105,4 @@ public class Button {
         p.popMatrix();
     }
 
-    public void onClick() {
-    }
-
 }
