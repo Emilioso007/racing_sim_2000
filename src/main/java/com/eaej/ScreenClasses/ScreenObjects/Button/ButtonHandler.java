@@ -4,15 +4,15 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 
-public class BH {
-    
+public class ButtonHandler {
+
     private PApplet p;
 
     private ArrayList<Button> buttons;
 
-    public String buttonPressed = "";
+    public String buttonClicked = "";
 
-    public BH(PApplet p) {
+    public ButtonHandler(PApplet p) {
         this.p = p;
         buttons = new ArrayList<Button>();
     }
@@ -22,11 +22,11 @@ public class BH {
     }
 
     public void update() {
-        for(int i = buttons.size()-1; i >= 0; i--) {
-            Button button = buttons.get(i);
+        buttonClicked = "";
+        for (Button button : buttons) {
             button.update();
-            if (button.state == button.CLICKED) {
-                buttonPressed = button.id;
+            if (button.isClicked()) {
+                buttonClicked = button.id;
             }
         }
     }

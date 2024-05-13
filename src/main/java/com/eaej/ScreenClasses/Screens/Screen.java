@@ -3,6 +3,7 @@ package com.eaej.ScreenClasses.Screens;
 import java.util.ArrayList;
 
 import com.eaej.LogicClasses.Vehicle.Vehicle;
+import com.eaej.ScreenClasses.ScreenObjects.Button.ButtonHandler;
 
 import processing.core.PApplet;
 import processing.core.PGraphics;
@@ -16,8 +17,11 @@ public class Screen {
 
     int colour;
 
+    public ButtonHandler buttonHandler;
+
     public Screen(PApplet p) {
         this.p = p;
+        buttonHandler = new ButtonHandler(p);
     }
 
     public void update() {

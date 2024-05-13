@@ -20,7 +20,7 @@ public class LocalPVE extends Screen {
 
     private int timer;
 
-    public LocalPVE(PApplet p) {
+    public LocalPVE(PApplet p, int aiAmount, int difficulty) {
         super(p);
 
         level = LevelFactory.createBlobLevel(100, 2000);

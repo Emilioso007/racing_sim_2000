@@ -4,6 +4,9 @@ import com.eaej.LogicClasses.Level.Level;
 import com.eaej.LogicClasses.Level.LevelFactory;
 import com.eaej.LogicClasses.Utility.KH;
 import com.eaej.LogicClasses.Vehicle.Vehicle;
+import com.eaej.ScreenClasses.ScreenManager;
+import com.eaej.ScreenClasses.ScreenObjects.Button.Button;
+import com.eaej.ScreenClasses.ScreenObjects.Button.ButtonHandler;
 
 import processing.core.PApplet;
 import processing.core.PGraphics;
@@ -27,6 +30,8 @@ public class LocalPVP extends Screen {
 
     public LocalPVP(PApplet p) {
         super(p);
+
+        buttonHandler.addButton(new Button(100, 100, 200, 100, "Back", "back_button"));
 
         level = LevelFactory.createBlobLevel(250, 2000);
 
@@ -52,6 +57,16 @@ public class LocalPVP extends Screen {
 
     @Override
     public void update() {
+        buttonHandler.update();
+        switch (buttonHandler.buttonClicked) {
+            case "back_button":
+                ScreenManager.setCurrentScreen(new ModeSelect(p));
+                break;
+
+            default:
+                break;
+        }
+
         timer++;
 
         if (KH.clicked("C")) {
@@ -126,6 +141,8 @@ public class LocalPVP extends Screen {
         }
 
         timer();
+
+        buttonHandler.render();
     }
 
     public static Vehicle[] getVehicles() {
