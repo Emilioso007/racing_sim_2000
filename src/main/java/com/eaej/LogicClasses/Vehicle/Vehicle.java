@@ -54,18 +54,22 @@ public class Vehicle {
                 applyForce(getHeading().mult(-1));
             }
             if (vel.mag() >= 0.05) {
+                float rotate = -0.0055555556f * vel.mag() + 0.05f;
+                System.out.println(rotate);
                 if (KH.pressed("A")) {
-                    rotate(-0.05f);
+                    rotate(-rotate);
                 }
                 if (KH.pressed("D")) {
-                    rotate(0.05f);
+                    rotate(rotate);
                 }
             }
             if (!KH.pressed("W") && !KH.pressed("S")) {
                 applyFriction();
             }
 
-        } else if (playerID == PLAYER_ARROW) {
+        } else if (playerID == PLAYER_ARROW)
+
+        {
             if (KH.pressed("UP")) {
                 applyForce(getHeading());
             }
@@ -73,11 +77,13 @@ public class Vehicle {
                 applyForce(getHeading().mult(-1));
             }
             if (vel.mag() >= 0.05) {
+                float rotate = -0.0055555556f * vel.mag() + 0.05f;
+                System.out.println(rotate);
                 if (KH.pressed("LEFT")) {
-                    rotate(-0.05f);
+                    rotate(-rotate);
                 }
                 if (KH.pressed("RIGHT")) {
-                    rotate(0.05f);
+                    rotate(rotate);
                 }
             }
             if (!KH.pressed("UP") && !KH.pressed("DOWN")) {
