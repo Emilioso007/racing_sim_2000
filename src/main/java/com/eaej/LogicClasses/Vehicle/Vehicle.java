@@ -51,7 +51,9 @@ public class Vehicle {
                 applyForce(getHeading());
             }
             if (KH.pressed("S")) {
-                applyForce(getHeading().mult(-1));
+                if (vel.mag() >= 0.05) {
+                    applyForce(getHeading().mult(-1));
+                }
             }
             if (vel.mag() >= 0.05) {
                 float rotate = -0.0055555556f * vel.mag() + 0.05f;
@@ -74,7 +76,9 @@ public class Vehicle {
                 applyForce(getHeading());
             }
             if (KH.pressed("DOWN")) {
-                applyForce(getHeading().mult(-1));
+                if (vel.mag() >= 0.05) {
+                    applyForce(getHeading().mult(-1));
+                }
             }
             if (vel.mag() >= 0.05) {
                 float rotate = -0.0055555556f * vel.mag() + 0.05f;
@@ -103,7 +107,7 @@ public class Vehicle {
     }
 
     public void applyFriction() {
-        if (vel.mag() < 0.01f || vel.mag() == 0) {
+        if (vel.mag() < 0.05f) {
             c = 0;
         } else
             c = 0.05f;
