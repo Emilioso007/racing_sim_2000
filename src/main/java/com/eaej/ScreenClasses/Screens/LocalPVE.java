@@ -38,19 +38,19 @@ public class LocalPVE extends Screen {
         vehicles[0] = new Vehicle(p, level.points.get(0).x, level.points.get(0).y, 3, 3);
         vehicles[0].playerID = Vehicle.PLAYER_WASD;
 
-        int maxSpeed, steerMax;
+        float maxSpeed, steerMax;
 
         switch (difficulty) {
             case 1:
                 maxSpeed = 3;
-                steerMax = 5;
+                steerMax = 3;
                 break;
             case 2:
-                maxSpeed = 4;
-                steerMax = 7;
+                maxSpeed = 3.2f;
+                steerMax = 10;
                 break;
             case 3:
-                maxSpeed = 5;
+                maxSpeed = 3.5f;
                 steerMax = 100;
                 break;
             default:
