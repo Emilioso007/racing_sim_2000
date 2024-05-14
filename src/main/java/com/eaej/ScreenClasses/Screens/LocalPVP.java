@@ -44,7 +44,7 @@ public class LocalPVP extends Screen {
             pG[i] = p.createGraphics(p.width / pG.length, p.height);
         }
 
-        vehicles[0] = new Vehicle(p, level.points.get(0).x, level.points.get(0).y, 10, 10);
+        vehicles[0] = new Vehicle(p, level.points.get(0).x, level.points.get(0).y, 3, 10);
         vehicles[1] = new Vehicle(p, level.points.get(0).x, level.points.get(0).y, 3, 10);
 
         vehicles[0].playerID = Vehicle.PLAYER_WASD;
@@ -118,8 +118,7 @@ public class LocalPVP extends Screen {
                 pG[i].scale(scale);
             }
 
-            showLines(level.getPoints(), 0xFF3B3B3B, 120, pG[i]);
-            showLines(level.getPoints(), 0xFFFFFFFF, 5, pG[i]);
+            showTrack(level.getPoints(), pG[i]);
 
             for (int j = 0; j < vehicles.length; j++) {
                 showVehicle(vehicles[j], carImages[j], pG[i]);

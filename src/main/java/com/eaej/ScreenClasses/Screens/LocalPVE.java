@@ -31,11 +31,10 @@ public class LocalPVE extends Screen {
 
         level = LevelFactory.createBlobLevel(100, 2000);
 
-        vehicles = new Vehicle[6];
-
         vehicles = new Vehicle[aiAmount + 1];
 
         vehicles[0] = new Vehicle(p, level.points.get(0).x, level.points.get(0).y, 3, 3);
+
         vehicles[0].playerID = Vehicle.PLAYER_WASD;
 
         float maxSpeed, steerMax;
@@ -59,7 +58,7 @@ public class LocalPVE extends Screen {
                 break;
         }
 
-        for (int i = 1; i < aiAmount + 1; i++) {
+        for (int i = 1; i < vehicles.length; i++) {
             vehicles[i] = new Vehicle(p, level.points.get(0).x, level.points.get(0).y, maxSpeed, steerMax);
             vehicles[i].playerID = Vehicle.PLAYER_AI;
         }
@@ -99,8 +98,12 @@ public class LocalPVE extends Screen {
         }
 
         if (vehicles[0].hitCheckpoint(level.getCurrentCheckpoint())) {
-            level.setCurrentCheckpoint(level.getPoints()
-                    .get((level.getPoints().indexOf(level.getCurrentCheckpoint()) + 5) % level.getPoints().size()));
+            if (level.currentCheckpointIndex + 5 < level.points.size()) {
+                level.currentCheckpointIndex += 5;
+                level.setCurrentCheckpoint(level.currentCheckpointIndex);
+            } else {
+                ScreenManager.setCurrentScreen(new LocalPVEWinScreen(p, elapsedTime / 1000f));
+            }
         }
 
         long currentTime = System.currentTimeMillis();
@@ -120,15 +123,15 @@ public class LocalPVE extends Screen {
             p.translate(p.width / 2, p.height / 2);
             float maxNoise = 0;
             for (PVector point : level.getPoints()) {
-                maxNoise = Math.max(maxNoise, point.z);
+                maxNoise = Math.max(maxNoise, PApplet.dist(point.x, point.y, p.width / 2, p.height / 2));
             }
             float scale = 0.5f * p.height / maxNoise;
             p.scale(scale);
             System.out.println(scale);
 
         }
-        showLines(level.getPoints(), 0xFF3B3B3B, 120);
-        showLines(level.getPoints(), 0xFFFFFFFF, 5);
+
+        showTrack(level.getPoints());
 
         for (int i = 0; i < vehicles.length; i++) {
             showVehicle(vehicles[i], carImages[i == 0 ? 0 : ((i % 4) + 1)]);

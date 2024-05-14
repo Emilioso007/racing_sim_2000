@@ -182,10 +182,10 @@ public class Vehicle {
 
         desired.normalize();
         desired.mult(maxSpeed);
-        System.out.println(maxSpeed);
+
         PVector steer = PVector.sub(desired, vel);
         steer.limit(steerMax);
-        System.out.println(steerMax);
+
         return steer;
     }
 
@@ -255,7 +255,6 @@ public class Vehicle {
     }
 
     public boolean hitCheckpoint(PVector currentCheckpoint) {
-        System.out.println(PVector.dist(pos, currentCheckpoint));
         return PVector.dist(pos, currentCheckpoint) < 60;
     }
 }

@@ -192,4 +192,18 @@ public class Screen {
         }
     }
 
+    public void showTrack(ArrayList<PVector> points) {
+
+        showLines(points, 0xFF3B3B3B, 120);
+        showLines(points, 0xFFFFFFFF, 5);
+
+    }
+
+    public void showTrack(ArrayList<PVector> points, PGraphics pG) {
+
+        showLines(points, 0xFF3B3B3B, 120, pG);
+        showLines(points, 0xFFFFFFFF, 5, pG);
+
+    }
+
 }

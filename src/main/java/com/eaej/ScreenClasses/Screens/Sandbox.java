@@ -21,7 +21,7 @@ public class Sandbox extends Screen {
         super(p);
 
         level = LevelFactory.createBlobLevel(100, 2000);
-        vehicle = new Vehicle(p, p.width / 2, p.height / 2, 3);
+        vehicle = new Vehicle(p, p.width / 2, p.height / 2, 3, 10);
         vehicle.setLevel(level);
     }
 

@@ -10,6 +10,8 @@ public class Level {
 
     public PVector currentCheckpoint;
 
+    public int currentCheckpointIndex = 5;
+
     public Level() {
 
     }
@@ -30,8 +32,8 @@ public class Level {
         return currentCheckpoint;
     }
 
-    public void setCurrentCheckpoint(PVector currentCheckpoint) {
-        this.currentCheckpoint = currentCheckpoint;
+    public void setCurrentCheckpoint(int index) {
+        this.currentCheckpoint = points.get(index);
     }
 
 }
