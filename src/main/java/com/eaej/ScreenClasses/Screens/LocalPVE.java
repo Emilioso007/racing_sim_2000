@@ -31,21 +31,37 @@ public class LocalPVE extends Screen {
 
         level = LevelFactory.createBlobLevel(100, 2000);
 
-        vehicles = new Vehicle[6];
+        vehicles = new Vehicle[aiAmount + 1];
 
-        vehicles[0] = new Vehicle(p, level.points.get(0).x, level.points.get(0).y, 3);
-        vehicles[1] = new Vehicle(p, level.points.get(0).x, level.points.get(0).y, 3);
-        vehicles[2] = new Vehicle(p, level.points.get(0).x, level.points.get(0).y, 4);
-        vehicles[3] = new Vehicle(p, level.points.get(0).x, level.points.get(0).y, 5);
-        vehicles[4] = new Vehicle(p, level.points.get(0).x, level.points.get(0).y, 6);
-        vehicles[5] = new Vehicle(p, level.points.get(0).x, level.points.get(0).y, 6);
+        vehicles[0] = new Vehicle(p, level.points.get(0).x, level.points.get(0).y, 3, 3);
 
         vehicles[0].playerID = Vehicle.PLAYER_WASD;
-        vehicles[1].playerID = Vehicle.PLAYER_AI;
-        vehicles[2].playerID = Vehicle.PLAYER_AI;
-        vehicles[3].playerID = Vehicle.PLAYER_AI;
-        vehicles[4].playerID = Vehicle.PLAYER_AI;
-        vehicles[5].playerID = Vehicle.PLAYER_AI;
+
+        float maxSpeed, steerMax;
+
+        switch (difficulty) {
+            case 1:
+                maxSpeed = 3;
+                steerMax = 3;
+                break;
+            case 2:
+                maxSpeed = 3.2f;
+                steerMax = 10;
+                break;
+            case 3:
+                maxSpeed = 3.5f;
+                steerMax = 100;
+                break;
+            default:
+                maxSpeed = 3;
+                steerMax = 3;
+                break;
+        }
+
+        for (int i = 1; i < vehicles.length; i++) {
+            vehicles[i] = new Vehicle(p, level.points.get(0).x, level.points.get(0).y, maxSpeed, steerMax);
+            vehicles[i].playerID = Vehicle.PLAYER_AI;
+        }
 
         for (Vehicle v : vehicles) {
             v.setLevel(level);
@@ -82,7 +98,7 @@ public class LocalPVE extends Screen {
         }
 
         if (vehicles[0].hitCheckpoint(level.getCurrentCheckpoint())) {
-            if(level.currentCheckpointIndex + 5 < level.points.size()) {
+            if (level.currentCheckpointIndex + 5 < level.points.size()) {
                 level.currentCheckpointIndex += 5;
                 level.setCurrentCheckpoint(level.currentCheckpointIndex);
             } else {

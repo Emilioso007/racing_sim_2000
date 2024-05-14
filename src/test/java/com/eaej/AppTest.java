@@ -35,21 +35,21 @@ public class AppTest {
 
     @Test
     public void testSeekBehaviourAtTarget() {
-        Vehicle vehicle = new Vehicle(p, 10, 10, 0);
+        Vehicle vehicle = new Vehicle(p, 10, 10, 0, 10);
         PVector target = new PVector(10, 10);
         assertEquals(vehicle.seek(target), new PVector(0, 0));
     }
 
     @Test
     public void testSeekBehaviourNotAtTarget() {
-        Vehicle vehicle = new Vehicle(p, 0, 0, 5);
+        Vehicle vehicle = new Vehicle(p, 0, 0, 5, 3);
         PVector target = new PVector(10, 5);
         assertEquals(vehicle.seek(target), new PVector(2.6832814f, 1.3416407f));
     }
 
     @Test
     public void testVehicleMoving() {
-        Vehicle vehicle = new Vehicle(p, 0, 0, 1);
+        Vehicle vehicle = new Vehicle(p, 0, 0, 1, 10);
         vehicle.playerID = Vehicle.PLAYER_WASD;
         vehicle.vel = new PVector(0, 0);
         KH.simulateKeyPress("W", KH.PRESSED);
@@ -60,7 +60,7 @@ public class AppTest {
 
     @Test
     public void testVehicleSlowingDown() {
-        Vehicle vehicle = new Vehicle(p, 0, 0, 5);
+        Vehicle vehicle = new Vehicle(p, 0, 0, 5, 10);
         vehicle.playerID = Vehicle.PLAYER_WASD;
         vehicle.vel = new PVector(1, 1);
         vehicle.update();
@@ -70,7 +70,7 @@ public class AppTest {
 
     @Test
     public void testVehicleRotatingWhenMoving() {
-        Vehicle vehicle = new Vehicle(p, 0, 0, 5);
+        Vehicle vehicle = new Vehicle(p, 0, 0, 5, 10);
         vehicle.playerID = Vehicle.PLAYER_WASD;
         vehicle.vel = new PVector(1, 1);
         KH.simulateKeyPress("D", KH.PRESSED);
@@ -81,7 +81,7 @@ public class AppTest {
 
     @Test
     public void testVehicleRotatingWhenStopped() {
-        Vehicle vehicle = new Vehicle(p, 0, 0, 0);
+        Vehicle vehicle = new Vehicle(p, 0, 0, 0, 10);
         vehicle.playerID = Vehicle.PLAYER_WASD;
         vehicle.vel = new PVector(0, 0);
         vehicle.update();
@@ -92,8 +92,8 @@ public class AppTest {
     public void testSeparateBehaviour() {
         Vehicle[] vehicles;
         vehicles = new Vehicle[1];
-        Vehicle vehicle = new Vehicle(p, 1, 1, 5);
-        vehicles[0] = new Vehicle(p, 3, 4, 5);
+        Vehicle vehicle = new Vehicle(p, 1, 1, 5, 10);
+        vehicles[0] = new Vehicle(p, 3, 4, 5, 10);
         vehicles[0].playerID = Vehicle.PLAYER_AI;
         vehicle.vel = new PVector(1, 1);
         vehicles[0].vel = new PVector(1, 1);

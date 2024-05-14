@@ -5,8 +5,8 @@ import com.eaej.ScreenClasses.ScreenObjects.Button.Button;
 
 import processing.core.PApplet;
 
-public class LocalPVEWinScreen extends Screen{
-    
+public class LocalPVEWinScreen extends Screen {
+
     private float timeElapsed;
 
     public LocalPVEWinScreen(PApplet p, float timeElapsed) {
@@ -30,7 +30,7 @@ public class LocalPVEWinScreen extends Screen{
         p.background(0);
         p.textSize(32);
         p.fill(255);
-        p.text("You made it in only " + timeElapsed + " seconds!", p.width/2, p.height/2);
+        p.text("You made it in only " + timeElapsed + " seconds!", p.width / 2, p.height / 2);
         buttonHandler.render();
     }
 
