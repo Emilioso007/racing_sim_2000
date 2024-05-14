@@ -45,7 +45,7 @@ public class LevelFactory {
             points.add(point);
         }
         Level level = new Level(points);
-        level.setCurrentCheckpoint(points.get(0));
+        level.setCurrentCheckpoint(0);
         return level;
 
     }
