@@ -9,6 +9,7 @@ import processing.core.PVector;
 
 public class LevelFactory {
 
+    // Creates a square-shaped level with hardcoded points
     public static Level createSquareLevel() {
         ArrayList<PVector> points = new ArrayList<PVector>();
         points.add(new PVector(100, 100));
@@ -19,6 +20,7 @@ public class LevelFactory {
         return level;
     }
 
+    // Creates a circular-shaped level with points calculated using trigonometry
     public static Level createCircleLevel() {
         ArrayList<PVector> points = new ArrayList<PVector>();
         for (int i = 0; i < 360; i++) {
@@ -30,6 +32,8 @@ public class LevelFactory {
         return level;
     }
 
+    // Creates a blob-shaped level with Perlin noise
+    // Takes a noise seed to generate consistent noise patterns
     public static Level createBlobLevel(int numPoints, int radius, int noiseSeed) {
 
         PerlinNoise.noiseSeed(noiseSeed);
@@ -50,6 +54,7 @@ public class LevelFactory {
 
     }
 
+    // Overloaded method to create a blob-shaped level with a random noise seed
     public static Level createBlobLevel(int numPoints, int radius) {
         int seed = (int) (Math.random() * 1000);
         System.out.println("Seed used: " + seed);

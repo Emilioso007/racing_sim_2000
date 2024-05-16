@@ -4,17 +4,21 @@ import java.util.HashMap;
 
 public class KH {
 
+    // Mapping of key codes to key names
     public static HashMap<Integer, String> keyNames = new HashMap<Integer, String>();
+    // Mapping of key names to key states
     public static HashMap<String, Integer> keys = new HashMap<String, Integer>();
 
+    // Constants representing key states
     public final static int PRESSED = 2;
     public final static int CLICKED = 1;
     public final static int RELEASED = 0;
 
+    // Private constructor to prevent instantiation
     private KH() {
-
     }
 
+    // Initialize key mappings
     public static void init() {
         keyNames.put(65, "A");
         keyNames.put(66, "B");
@@ -48,19 +52,18 @@ public class KH {
         keyNames.put(38, "UP");
         keyNames.put(39, "RIGHT");
         keyNames.put(40, "DOWN");
-
     }
 
+    // Update key states
     public static void update() {
-
         for (String key : keys.keySet()) {
             if (keys.get(key) == CLICKED) {
                 keys.put(key, PRESSED);
             }
         }
-
     }
 
+    // Check if a key was clicked
     public static boolean clicked(String string) {
         try {
             return keys.get(string) == CLICKED;
@@ -69,6 +72,7 @@ public class KH {
         }
     }
 
+    // Check if a key is pressed
     public static boolean pressed(String string) {
         try {
             return keys.get(string) == PRESSED;
@@ -77,6 +81,7 @@ public class KH {
         }
     }
 
+    // Check if a key was released
     public static boolean released(String string) {
         try {
             return keys.get(string) == RELEASED;
@@ -85,6 +90,7 @@ public class KH {
         }
     }
 
+    // Simulate a key press
     public static void simulateKeyPress(String key, int state) {
         keys.put(key, state);
     }

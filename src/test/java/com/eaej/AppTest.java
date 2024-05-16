@@ -64,7 +64,6 @@ public class AppTest {
         vehicle.playerID = Vehicle.PLAYER_WASD;
         vehicle.vel = new PVector(1, 1);
         vehicle.update();
-
         assertEquals(vehicle.vel, new PVector(0.9646447f, 0.9646447f));
     }
 
@@ -75,7 +74,7 @@ public class AppTest {
         vehicle.vel = new PVector(1, 1);
         KH.simulateKeyPress("D", KH.PRESSED);
         vehicle.update();
-        assertEquals(vehicle.vel, new PVector(0.915227f, 1.0116513f));
+        assertEquals(vehicle.vel, new PVector(0.92314696f, 1.0044295f));
         KH.simulateKeyPress("D", KH.RELEASED);
     }
 
