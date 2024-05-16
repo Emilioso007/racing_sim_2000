@@ -85,6 +85,24 @@ public class LocalPVP extends Screen {
         for (Vehicle v : vehicles) {
             v.update();
         }
+
+        if (vehicles[0].hitCheckpoint(level.getCurrentCheckpoint())) {
+            if (level.currentCheckpointIndex + 5 < level.points.size()) {
+                level.currentCheckpointIndex += 5;
+                level.setCurrentCheckpoint(level.currentCheckpointIndex);
+            } else {
+                ScreenManager.setCurrentScreen(new LocalPVPWinScreen(p, elapsedTime / 1000f, 1));
+            }
+        }
+        if (vehicles[1].hitCheckpoint(level.getCurrentCheckpoint())) {
+            if (level.currentCheckpointIndex + 5 < level.points.size()) {
+                level.currentCheckpointIndex += 5;
+                level.setCurrentCheckpoint(level.currentCheckpointIndex);
+            } else {
+                ScreenManager.setCurrentScreen(new LocalPVPWinScreen(p, elapsedTime / 1000f, 2));
+            }
+        }
+
         long currentTime = System.currentTimeMillis();
         elapsedTime = currentTime - startTime;
 
@@ -127,6 +145,11 @@ public class LocalPVP extends Screen {
             pG[i].fill(255, 0, 0);
             pG[i].ellipse(0, 0, 1, 1);
             pG[i].noFill();
+
+            pG[i].noFill();
+            pG[i].stroke(0xFF00FF00);
+            pG[i].strokeWeight(5);
+            pG[i].ellipse(level.getCurrentCheckpoint().x, level.getCurrentCheckpoint().y, 120, 120);
 
             pG[i].popMatrix();
             pG[i].rect(0, 0, sectionWidth, pG[i].height);
