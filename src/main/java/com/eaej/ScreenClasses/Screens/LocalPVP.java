@@ -152,6 +152,8 @@ public class LocalPVP extends Screen {
             pG[i].ellipse(level.getCurrentCheckpoint().x, level.getCurrentCheckpoint().y, 120, 120);
 
             pG[i].popMatrix();
+
+            pG[i].stroke(255);
             pG[i].rect(0, 0, sectionWidth, pG[i].height);
             pG[i].rect(0, 0, sectionWidth * 2, pG[i].height);
 

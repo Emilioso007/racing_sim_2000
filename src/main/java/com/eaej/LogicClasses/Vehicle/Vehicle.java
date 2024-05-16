@@ -57,7 +57,7 @@ public class Vehicle {
             }
             if (vel.mag() >= 0.05) {
                 float rotate = -0.0055555556f * vel.mag() + 0.05f;
-                System.out.println(rotate);
+                //System.out.println(rotate);
                 if (KH.pressed("A")) {
                     rotate(-rotate);
                 }
@@ -82,7 +82,7 @@ public class Vehicle {
             }
             if (vel.mag() >= 0.05) {
                 float rotate = -0.0055555556f * vel.mag() + 0.05f;
-                System.out.println(rotate);
+                //System.out.println(rotate);
                 if (KH.pressed("LEFT")) {
                     rotate(-rotate);
                 }
